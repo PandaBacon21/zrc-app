@@ -1,0 +1,31 @@
+services:
+  frontend:
+    build:
+      context: ./zrc-app
+    container_name: zrc-frontend
+    ports:
+      # - "8080:80"
+      - "5173:5173"
+    volumes:
+      # Mapping local directory to directory /app in the container for development
+      # This allows you to edit files in your local directory and see the changes in the container
+      # without needing to rebuild the image
+      - ./zrc-app:/app
+      - /app/node_modules
+    environment:
+      # This is needed for hot reloading to work properly
+      - CHOKIDAR_USEPOLLING=true
+    restart: unless-stopped
+
+  backend:
+    build:
+      context: ./zr-controller-api
+    container_name: zrc-backend
+    ports:
+      - "8080:8080"
+    volumes:
+      # Mapping local directory to directory /app in the container for development
+      # This allows you to edit files in your local directory and see the changes in the container
+      # without needing to rebuild the image
+      - ./zr-controller-api:/app
+    restart: unless-stopped

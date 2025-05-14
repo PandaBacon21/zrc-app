@@ -20,11 +20,13 @@ def create_app(config_class=Config):
     db.init_app(app)
     CORS(app)
 
-    from .routes import api
-    
-    app.register_blueprint(api.api_bp, url_prefix='/api')
-    
-    return app
+    with app.app_context():
+
+        from .routes import api
+        
+        app.register_blueprint(api.api_bp, url_prefix='/api')
+        
+        return app
 
 
 

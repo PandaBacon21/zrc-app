@@ -4,8 +4,9 @@ import { useState } from "react";
 
 function App() {
   const [camaraState, setCameraState] = useState(false);
+  const [meetingAccepted, setMeetingAccepted] = useState(false);
 
-  const handleClick = async () => {
+  const handleAudioClick = async () => {
     try {
       const response = await axios({
         method: "POST",
@@ -19,8 +20,26 @@ function App() {
       });
       console.log(response.data);
       setCameraState(!camaraState);
-    } catch (error) {
-      console.error("Error toggling camera:", error);
+    } catch (e) {
+      console.error("Error toggling camera:", e);
+    }
+  };
+
+  const handleMeetingAccept = async () => {
+    try {
+      const response = await axios({
+        method: "GET",
+        url: "/api/accept-meeting",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      console.log(response.data);
+      if (response.status == 202) {
+        setMeetingAccepted(true);
+      }
+    } catch (e) {
+      console.error("Error joining meeting:", e);
     }
   };
 
@@ -47,7 +66,16 @@ function App() {
       <Typography variant="h4" sx={{ marginBottom: 5 }}>
         Zoom Room Name (replace later)
       </Typography>
-      <Button variant="contained" onClick={handleClick}>
+      {!meetingAccepted ? (
+        <Button
+          sx={{ marginBottom: 4 }}
+          variant="contained"
+          onClick={handleMeetingAccept}
+        >
+          Accept Meeting
+        </Button>
+      ) : null}
+      <Button variant="contained" onClick={handleAudioClick}>
         Toggle Zoom Rooms Camera
       </Button>
     </Container>

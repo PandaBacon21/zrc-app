@@ -9,8 +9,10 @@ class Config():
     ACCOUNT_ID = environ.get('ACCOUNT_ID')
     CLIENT_ID = environ.get('CLIENT_ID')
     CLIENT_SECRET = environ.get('CLIENT_SECRET')
-    ZOOM_AUTH_URL = environ.get('AUTH_URL')
-    ZOOM_API_URL = environ.get('API_URL')
+    ZOOM_AUTH_URL = environ.get('ZOOM_AUTH_URL')
+    ZOOM_API_URL = environ.get('ZOOM_API_URL')
+
+    ROOM_ID = environ.get('ROOM_ID')
     
     # Database
     SQLALCHEMY_DATABASE_URI = environ.get('DB_URI')

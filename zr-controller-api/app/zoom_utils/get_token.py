@@ -5,14 +5,14 @@ import json
 from datetime import datetime, timedelta, timezone
 
 from flask import current_app
-from models.models import Token 
+from ..models.models import Token 
 from app import db
 
 ACCOUNT_ID = current_app.config['ACCOUNT_ID']
 CLIENT_ID = current_app.config['CLIENT_ID']
 CLIENT_SECRET = current_app.config['CLIENT_SECRET']
 
-AUTH_URL = current_app.config['AUTH_URL']
+ZOOM_AUTH_URL = current_app.config['ZOOM_AUTH_URL']
 ZOOM_API_URL = current_app.config['ZOOM_API_URL']
 
 combined_client = f'{CLIENT_ID}:{CLIENT_SECRET}'
@@ -24,7 +24,7 @@ HEADERS = headers = {
     }
 
 def get_new_token(): 
-    final_url = f'{AUTH_URL}?grant_type=account_credentials&account_id={ACCOUNT_ID}'
+    final_url = f'{ZOOM_AUTH_URL}?grant_type=account_credentials&account_id={ACCOUNT_ID}'
     response = requests.post(url=final_url, headers=headers)
     print(f'Zoom Token Endpoint - Status Code: {response.status_code}')
     r_content = json.loads(response.content)

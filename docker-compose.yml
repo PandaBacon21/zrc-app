@@ -17,15 +17,9 @@ services:
       - CHOKIDAR_USEPOLLING=true
     restart: unless-stopped
 
+  # NEED TO UPDATE BACKEND SERVICES
   backend:
     build:
       context: ./zr-controller-api
     container_name: zrc-backend
     ports:
-      - "8080:8080"
-    volumes:
-      # Mapping local directory to directory /app in the container for development
-      # This allows you to edit files in your local directory and see the changes in the container
-      # without needing to rebuild the image
-      - ./zr-controller-api:/app
-    restart: unless-stopped

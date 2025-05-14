@@ -1,4 +1,5 @@
 import { Button, Container, Typography } from "@mui/material";
+import axios from "axios";
 import { useState } from "react";
 
 function App() {
@@ -6,14 +7,20 @@ function App() {
 
   const handleClick = async () => {
     try {
-      if (camaraState) {
-        setCameraState(false);
-      } else {
-        setCameraState(true);
-      }
-      console.log(camaraState);
-    } catch (e) {
-      console.log(e);
+      const response = await axios({
+        method: "POST",
+        url: "/api/toggle-camera",
+        data: {
+          cameraState: !camaraState,
+        },
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      console.log(response.data);
+      setCameraState(!camaraState);
+    } catch (error) {
+      console.error("Error toggling camera:", error);
     }
   };
 

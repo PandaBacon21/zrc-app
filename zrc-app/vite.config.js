@@ -8,6 +8,11 @@ export default defineConfig(({ mode }) => {
   return {
     plugins: [react()],
     server: {
+      proxy: {
+        "/api": {
+          target: "http://localhost:5000",
+        },
+      },
       allowedHosts: ["localhost", env.VITE_DOMAIN],
     },
   };

@@ -24,3 +24,8 @@ dist-ssr
 *.sw?
 
 .env
+
+# Flask
+.venv
+__pycache__/
+token.db
